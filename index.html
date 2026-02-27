@@ -1,154 +1,209 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <style>
-        body {
-            font-family: 'Arial', sans-serif;
-            display: flex;
-            justify-content: center;
-            align-items: center;
-            height: 100vh;
-            margin: 0;
-            background: linear-gradient(to bottom right, #FF66B2, #FF99CC);
-            color: #fff;
-        }
+<meta charset="UTF-8">
+<title>For Ayushi 💖</title>
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<style>
+  body {
+    margin: 0;
+    font-family: 'Georgia', serif;
+    background: #fff0f5;
+    text-align: center;
+    color: #4b0033;
+    overflow-x: hidden;
+  }
 
-        #ticTacToeBoard {
-            display: grid;
-            grid-template-columns: repeat(3, 100px);
-            grid-gap: 5px;
-        }
+  /* Hero Section */
+  .hero {
+    position: relative;
+    height: 80vh;
+    background: url('https://i.postimg.cc/mg73WNwj/25d80bf8-5c34-407d-b393-426ae0ccb6da.jpg') no-repeat center top;
+    background-size: contain;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+  }
 
-        .cell {
-            width: 100px;
-            height: 100px;
-            display: flex;
-            justify-content: center;
-            align-items: center;
-            font-size: 24px;
-            cursor: pointer;
-            border: 1px solid #ccc;
-            background-color: #87CEEB; /* Change the background color here */
-            transition: background-color 0.3s;
-        }
+  .overlay {
+    background: rgba(0,0,0,0.4);
+    padding: 30px 20px;
+    border-radius: 15px;
+    color: white;
+  }
 
-        .cell:hover {
-            background-color: #eee;
-        }
+  h1 {
+    font-size: 48px;
+    margin: 0 0 10px;
+    animation: heartbeat 1.5s infinite;
+  }
 
-        .modal {
-            display: none;
-            position: fixed;
-            top: 0;
-            left: 0;
-            width: 100%;
-            height: 100%;
-            background: rgba(0, 0, 0, 0.7);
-            justify-content: center;
-            align-items: center;
-        }
+  @keyframes heartbeat {
+    0%,100% { transform: scale(1); }
+    50% { transform: scale(1.1); }
+  }
 
-        .modal-content {
-            background-color: #fff;
-            padding: 20px;
-            border-radius: 5px;
-            text-align: center;
-            max-width: 300px;
-            margin: auto;
-        }
+  p {
+    font-size: 20px;
+    max-width: 600px;
+    margin: auto;
+  }
 
-        .result-message {
-            font-size: 18px;
-            margin-bottom: 20px;
-        }
+  /* Floating Hearts */
+  .heart {
+    position: absolute;
+    font-size: 24px;
+    color: #ff4da6;
+    animation: floatUp 5s linear infinite;
+    user-select: none;
+    pointer-events: none;
+  }
+  @keyframes floatUp {
+    0% {transform: translateY(0) scale(1); opacity:1;}
+    100% {transform: translateY(-500px) scale(1.5); opacity:0;}
+  }
 
-        button {
-            padding: 10px 20px;
-            font-size: 16px;
-            cursor: pointer;
-        }
-    </style>
-    <title>Tic Tac Toe</title>
+  /* Gallery */
+  .gallery {
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    gap: 20px;
+    padding: 50px 20px;
+    justify-items: center;
+  }
+  .gallery img {
+    width: 100%;
+    max-width: 250px;
+    border-radius: 15px;
+    box-shadow: 0 8px 20px rgba(0,0,0,0.3);
+    transition: 0.3s;
+    cursor: pointer;
+  }
+  .gallery img:hover {
+    transform: scale(1.05);
+    box-shadow: 0 12px 30px rgba(0,0,0,0.5);
+  }
+
+  /* Message */
+  .message {
+    padding: 40px 20px;
+    max-width: 700px;
+    margin: auto;
+    font-size: 20px;
+    line-height:1.8;
+  }
+
+  button {
+    padding: 12px 28px;
+    border: none;
+    background: #ff4da6;
+    color: white;
+    border-radius: 25px;
+    cursor: pointer;
+    margin-top: 20px;
+    font-size: 18px;
+    transition: 0.3s;
+  }
+  button:hover {
+    transform: scale(1.05);
+    background: #ff1a75;
+  }
+
+  footer {
+    margin-top: 40px;
+    padding: 15px;
+    background: #ff4da6;
+    color: white;
+    font-size: 16px;
+  }
+
+  /* Modal */
+  .modal {
+    display: none;
+    position: fixed;
+    z-index: 100;
+    left:0;
+    top:0;
+    width:100%;
+    height:100%;
+    background: rgba(0,0,0,0.6);
+    justify-content: center;
+    align-items: center;
+  }
+  .modal-content {
+    background: #fff0f5;
+    padding: 40px 20px;
+    border-radius: 15px;
+    color: #4b0033;
+    max-width: 400px;
+    text-align: center;
+    font-size: 20px;
+    box-shadow: 0 10px 30px rgba(0,0,0,0.3);
+    animation: pop 0.5s ease;
+  }
+  @keyframes pop {
+    0% { transform: scale(0.5); opacity:0;}
+    100% { transform: scale(1); opacity:1;}
+  }
+
+</style>
 </head>
 <body>
 
-<div id="ticTacToeBoard"></div>
-<div class="modal" id="resultModal">
-    <div class="modal-content">
-        <div class="result-message" id="resultMessage"></div>
-        <button onclick="resetGame()">New Game</button>
+  <!-- Hero -->
+  <div class="hero">
+    <div class="overlay">
+      <h1>Ayushi 💖</h1>
+      <p>You are my peace, my happiness, and my forever. Every moment with you is magical.</p>
     </div>
-</div>
+  </div>
 
-<script>
-    document.addEventListener('DOMContentLoaded', () => {
-        const board = document.getElementById('ticTacToeBoard');
-        const resultModal = document.getElementById('resultModal');
-        const resultMessage = document.getElementById('resultMessage');
-        let currentPlayer = 'X';
-        let gameBoard = ['', '', '', '', '', '', '', '', ''];
-        let gameOver = false;
+  <!-- Gallery -->
+  <div class="gallery">
+    <img src="https://i.postimg.cc/mg73WNwj/25d80bf8-5c34-407d-b393-426ae0ccb6da.jpg" alt="Ayushi 1">
+    <img src="https://i.postimg.cc/9QyPHtp1/1a95742d-2014-4ef5-a367-e5bb7b9099a5.jpg" alt="Ayushi 2">
+    <img src="https://i.postimg.cc/CxbCpHNP/877ce863-aecd-4889-9ad9-49d06269835e.jpg" alt="Ayushi 3">
+    <img src="https://i.postimg.cc/L8jkFBTt/d937b2e7-10ba-4847-8ecb-98eae90df49d.jpg" alt="Ayushi 4">
+  </div>
 
-        function renderBoard() {
-            board.innerHTML = '';
-            gameBoard.forEach((cell, index) => {
-                const cellElement = document.createElement('div');
-                cellElement.classList.add('cell');
-                cellElement.textContent = cell;
-                cellElement.addEventListener('click', () => handleCellClick(index));
-                board.appendChild(cellElement);
-            });
-        }
+  <!-- Message -->
+  <div class="message">
+    Every day I choose you, every day I admire you, and every day I feel lucky to have you in my life. 💕
+    <br>
+    <button id="loveBtn">Tap for Love</button>
+  </div>
 
-        function handleCellClick(index) {
-            if (gameOver || gameBoard[index] !== '') return;
+  <footer>Made with all my heart — Purab 💖</footer>
 
-            gameBoard[index] = currentPlayer;
-            renderBoard();
+  <!-- Modal -->
+  <div id="loveModal" class="modal">
+    <div class="modal-content">
+      💖 You are my world, my smile, my everything! 💖
+    </div>
+  </div>
 
-            if (checkWin() || checkDraw()) {
-                gameOver = true;
-                showResult(checkWin() ? `Player ${currentPlayer} wins!` : 'It\'s a draw!');
-            } else {
-                currentPlayer = currentPlayer === 'X' ? 'O' : 'X';
-            }
-        }
+  <!-- Floating hearts script -->
+  <script>
+    function createHeart() {
+      const heart = document.createElement('div');
+      heart.className = 'heart';
+      heart.innerText = '💖';
+      heart.style.left = Math.random() * window.innerWidth + 'px';
+      heart.style.fontSize = 12 + Math.random() * 24 + 'px';
+      heart.style.animationDuration = 3 + Math.random() * 2 + 's';
+      document.body.appendChild(heart);
+      setTimeout(()=>heart.remove(),5000);
+    }
+    setInterval(createHeart,500);
 
-        function checkWin() {
-            const winPatterns = [
-                [0, 1, 2], [3, 4, 5], [6, 7, 8], // Rows
-                [0, 3, 6], [1, 4, 7], [2, 5, 8], // Columns
-                [0, 4, 8], [2, 4, 6]             // Diagonals
-            ];
-
-            return winPatterns.some(pattern => {
-                const [a, b, c] = pattern;
-                return gameBoard[a] && gameBoard[a] === gameBoard[b] && gameBoard[a] === gameBoard[c];
-            });
-        }
-
-        function checkDraw() {
-            return !gameBoard.includes('');
-        }
-
-        function showResult(result) {
-            resultMessage.textContent = result;
-            resultModal.style.display = 'flex';
-        }
-
-        function resetGame() {
-            currentPlayer = 'X';
-            gameBoard = ['', '', '', '', '', '', '', '', ''];
-            gameOver = false;
-            resultModal.style.display = 'none';
-            renderBoard();
-        }
-
-        renderBoard();
-    });
-</script>
+    // Modal
+    const btn = document.getElementById('loveBtn');
+    const modal = document.getElementById('loveModal');
+    btn.onclick = () => {
+      modal.style.display = 'flex';
+      setTimeout(()=>modal.style.display='none', 2500);
+    }
+  </script>
 
 </body>
 </html>
